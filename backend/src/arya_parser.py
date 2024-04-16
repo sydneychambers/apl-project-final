@@ -134,7 +134,6 @@ def p_array_value_list(p):
 def p_array_index_access(p):
     """
     array_index_access : identifier LBRACKET INTEGER_VALUE RBRACKET
-                      | identifier LBRACKET identifier RBRACKET 
     """
     p[0] = ('array_index_access', p[1], p[3])
 

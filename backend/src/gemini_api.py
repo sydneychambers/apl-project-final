@@ -57,8 +57,6 @@ def gemini_api(prompt):
                 'float': 'FLOAT',
                 'integer': 'INTEGER',
                 'string': 'STRING',
-                'true': 'TRUE',
-                'false': 'FALSE',
                 'if': 'IF',
                 'otherwise': 'OTHERWISE',
                 'end_if': 'END_IF',
@@ -66,7 +64,6 @@ def gemini_api(prompt):
                 'with': 'WITH',
                 'limit': 'LIMIT',
                 'end_for': 'END_FOR',
-                'in': 'IN',
                 'while': 'WHILE',
                 'end_while': 'END_WHILE',
                 'break': 'BREAK',
@@ -156,17 +153,12 @@ def gemini_api(prompt):
                          | INTEGER
                          | STRING
                          | NULL
-                         | boolean
                          
-               boolean : TRUE
-                        | FALSE
                 
                datavalue : FLOAT_VALUE
                          | INTEGER_VALUE
                          | STRING_VALUE
                          | NULL_VALUE
-                         | TRUE
-                         | FALSE
                          | identifier
                 
                identifier : IDENTIFIER
@@ -183,7 +175,11 @@ def gemini_api(prompt):
             Arya cannot create or handle / define any function apart from main_func, which also means there can be no 
             function calls. 
             
-
+            Arya cannot do anything boolean-related.
+            
+            Arya cannot access an array using a loop index value to check the value at each index. If you generate
+            any code that accesses the specific index of an array, you are to do it using an explicit integer value ->
+            a[1], a[2], etc.
             
             If user input says something along the lines of "Create a function to", that function will 
             always be main_func, and the code for satisfying the user request shall be generated within main_func.
