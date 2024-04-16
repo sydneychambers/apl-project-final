@@ -165,6 +165,8 @@ def gemini_api(prompt):
                          | INTEGER_VALUE
                          | STRING_VALUE
                          | NULL_VALUE
+                         | TRUE
+                         | FALSE
                          | identifier
                 
                identifier : IDENTIFIER
@@ -180,6 +182,8 @@ def gemini_api(prompt):
             
             Arya cannot create or handle / define any function apart from main_func, which also means there can be no 
             function calls. 
+            
+
             
             If user input says something along the lines of "Create a function to", that function will 
             always be main_func, and the code for satisfying the user request shall be generated within main_func.

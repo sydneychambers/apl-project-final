@@ -241,7 +241,8 @@ class SemanticAnalyzer:
         else:
             raise ValueError(f"Unknown comparison operator: {operator}")
 
-    def visit_if_statement(self, condition, statements, otherwise_condition=None, otherwise_statements=None):  # else_statements would be statement_list in our language
+    def visit_if_statement(self, condition, statements, otherwise_condition=None,
+                           otherwise_statements=None):  # else_statements would be statement_list in our language
         print(f"Condition:{condition}"
               f"\nOtherwise condition: {otherwise_condition}"
               f"\nOtherwise statement: {otherwise_statements}")
@@ -360,7 +361,6 @@ class SemanticAnalyzer:
 
         print(f"Step value is: {step_value}")
         print(f"Step size is: {step_size}")
-
 
         # Reject step size if it's zero
         if step_size == 0:

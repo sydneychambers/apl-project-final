@@ -69,5 +69,5 @@ def arya_compiler(source_code):  # can call this in order to pass text to compil
 # compile(source_code)
 
 # Pass the file contents to the compile function
-arya_compiler(file_contents)
+# arya_compiler(file_contents)
 # arya_compiler(source_code)
