@@ -2,6 +2,5 @@ Flask==2.2.2
 gunicorn
 Werkzeug==2.2.2
 ply==3.11
-google-generativeai==1.0.0
 python-dotenv==0.19.0
 
