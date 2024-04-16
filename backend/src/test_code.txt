@@ -1,0 +1,9 @@
+main_func execute:
+{
+for integer i = 10; with limit 2 descend 2 execute:
+{
+    print("Hello, world!");
+}
+end_for
+}
+end_func
