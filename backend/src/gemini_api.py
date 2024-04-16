@@ -95,19 +95,19 @@ def gemini_api(prompt):
                                | statement
         
                statement : expression
-                         | variable_declaration
-                         | variable_assignment
-                         | array_declaration
-                         | array_index_access
-                         | while_statement
-                         | do_while_statement
-                         | for_statement
-                         | if_statement
-                         | print_statement
-                         | empty
+                          | variable_declaration
+                          | variable_assignment
+                          | array_declaration
+                          | array_index_access
+                          | while_statement
+                          | do_while_statement
+                          | for_statement
+                          | if_statement
+                          | print_statement
+                          | empty
            
-               if_statement : IF '(' condition_expression ')' EXECUTE ':' statement_list END_IF
-                            | IF '(' condition_expression ')' EXECUTE ':' statement_list OTHERWISE '(' condition_expression ')' EXECUTE ':' statement_list END_IF
+               if_statement : IF '(' condition_expression ')' EXECUTE ':' '{' statement_list '}' END_IF
+                            | IF '(' condition_expression ')' EXECUTE ':' '{' statement_list '}' OTHERWISE IF '(' condition_expression ')' EXECUTE ':' '{' statement_list '}' END_IF
            
                for_statement : FOR variable_declaration WITH LIMIT INTEGER_VALUE ASCEND INTEGER_VALUE EXECUTE ':' '{' statement_list '}' END_FOR
                              | FOR variable_declaration WITH LIMIT INTEGER_VALUE DESCEND INTEGER_VALUE EXECUTE ':' '{' statement_list '}' END_FOR
@@ -123,7 +123,6 @@ def gemini_api(prompt):
                variable_declaration : datatype variable_assignment
            
                variable_assignment : identifier ';'
-                                   | identifier '=' '(' expression ')' ';'
                                    | identifier '=' expression ';'
            
                array_declaration : datatype identifier '[' INTEGER_VALUE ']' ';'
@@ -165,12 +164,10 @@ def gemini_api(prompt):
                datavalue : FLOAT_VALUE
                          | INTEGER_VALUE
                          | STRING_VALUE
-                         | BOOLEAN_VALUE
                          | NULL_VALUE
                          | identifier
                 
                identifier : IDENTIFIER
-                          | array_index_access
                 
                empty :
         
