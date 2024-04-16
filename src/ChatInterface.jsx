@@ -30,6 +30,9 @@ const ChatInterface = () => {
     // Get the current value of the user input field
     const input_data = inputRef.current.value;
 
+    // Clear the input field
+    inputRef.current.value = '';
+
     const response = await fetch('/gemini_endpoint', {
         method: 'POST',
         headers: {
@@ -54,21 +57,11 @@ const ChatInterface = () => {
 
 
     const handleAiResponse = (response) => {
-    const codeRegex = /main_func\s*{([\s\S]*?})\s*end_func/g;
-
-    const codeMatch = response.match(codeRegex);
-    if (codeMatch) {
-      setAiCode(codeMatch[1]);
-      setShowAiCode(true);
-      const textResponse = response.replace(codeRegex, "").trim();
-      if (textResponse) {
-        setMessages(prevMessages => [...prevMessages, { sender: "Arya Assistant", text: textResponse }]);
-      }
-    } else {
-      setAiCode("");
-      setShowAiCode(false);
-      setMessages(prevMessages => [...prevMessages, { sender: "Arya Assistant", text: response }]);
-    }
+    // Add the AI response to the messages array
+    setMessages(prevMessages => [
+        ...prevMessages,
+        { sender: "Arya Assistant", text: response }
+    ]);
   };
 
     const copyCodeToClipboard = () => {
