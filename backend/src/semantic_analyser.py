@@ -361,9 +361,6 @@ class SemanticAnalyzer:
         print(f"Step value is: {step_value}")
         print(f"Step size is: {step_size}")
 
-        # Adjust start value if it's negative
-        if step_size < 0:
-            raise ValueError("Step size cannot be negative")
 
         # Reject step size if it's zero
         if step_size == 0:

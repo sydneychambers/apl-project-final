@@ -26,12 +26,12 @@ from ply import lex
 # end_func
 # """
 
-# try:
-#     with open('test_code.txt', 'r') as file:
-#         # Read the contents of the file
-#         file_contents = file.read()
-# except FileNotFoundError:
-#     print("Error: The file 'test_code.txt' was not found.")
+try:
+    with open('test_code.txt', 'r') as file:
+        # Read the contents of the file
+        file_contents = file.read()
+except FileNotFoundError:
+    print("Error: The file 'test_code.txt' was not found.")
 
 
 def arya_compiler(source_code):  # can call this in order to pass text to compiler
@@ -69,5 +69,5 @@ def arya_compiler(source_code):  # can call this in order to pass text to compil
 # compile(source_code)
 
 # Pass the file contents to the compile function
-# arya_compiler(file_contents)
+arya_compiler(file_contents)
 # arya_compiler(source_code)
