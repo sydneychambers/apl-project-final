@@ -134,6 +134,7 @@ def p_array_value_list(p):
 def p_array_index_access(p):
     """
     array_index_access : identifier LBRACKET INTEGER_VALUE RBRACKET
+                      | identifier LBRACKET identifier RBRACKET 
     """
     p[0] = ('array_index_access', p[1], p[3])
 
@@ -177,18 +178,8 @@ def p_datatype(p):
     datatype : FLOAT
              | INTEGER
              | STRING
-             | NULL
-             | boolean
     """
     p[0] = p[1]
-
-
-def p_boolean(p):
-    """
-    boolean : TRUE
-            | FALSE
-    """
-    p[0] = ('boolean', p[1])
 
 
 def p_datavalue(p):
@@ -196,7 +187,6 @@ def p_datavalue(p):
     datavalue : FLOAT_VALUE
              | INTEGER_VALUE
              | STRING_VALUE
-             | NULL_VALUE
              | identifier
     """
     p[0] = p[1]
