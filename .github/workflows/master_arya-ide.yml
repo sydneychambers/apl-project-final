@@ -2,7 +2,7 @@
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 # More info on Python, GitHub Actions, and Azure App Service: https://aka.ms/python-webapps-actions
 
-name: Build and deploy Python app to Azure Web App - arya-ide
+name: Build and deploy Python app to Azure Web App - Arya-IDE
 
 on:
   push:
@@ -65,14 +65,14 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v1
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_41B3E88D867C48B1802D79C792F2C40B }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_2134EDD8D67946D4AD42D5B7FA034C80 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_A9878539B3BB472C98A2BF73127B61FF }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_B21084BFC29840B8B83E7574B855A1BD }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_46BE4A9E32DB491093889ADE999094DA }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_520D3E4CFD7E4AD28AC9430ADD1F3BFB }}
 
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
         id: deploy-to-webapp
         with:
-          app-name: 'arya-ide'
+          app-name: 'Arya-IDE'
           slot-name: 'Production'
           
