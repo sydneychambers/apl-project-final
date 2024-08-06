@@ -1,0 +1,7 @@
+main_func execute:
+    integer x = 3;
+
+    print("Before calling add function, x = ", x);
+
+    print("After calling add function, x = ", x);
+end_func
