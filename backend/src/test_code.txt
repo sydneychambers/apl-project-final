@@ -1,48 +1,7 @@
- main_func execute:
-{
+main_func execute:
+    integer x = 3;
 
-    integer arr[5] = [1,2,3,4,5];
-    integer number;
-    integer low;
-    integer high;
-    integer mid;
+    print("Before calling add function, x = ", x);
 
-    print("Enter the number of elements: ");
-    integer size = 5;
-
-    print("Enter the elements of the array: ");
-    for integer i = 0; with limit 10 ascend 1 execute:
-    {
-        print("arr[i] is:" + arr[i]);
-    }
-    end_for
-
-    print("Enter the number to be searched: ");
-    number = 2;
-
-    low = 0;
-    high = size - 1;
-
-    while (low <= high) execute:
-    {
-        mid = low + high + 2;
-
-        if (arr[mid] == number) execute:
-        {
-            print("Element found at position: " + mid + 1);
-         }
-        otherwise if (arr[mid] < number) execute:
-        {
-            low = mid + 1;
-         }
-        end_if
-    }
-    end_while
-
-    if (low > high) execute:
-    {
-        print("Element not found");
-    }
-    end_if
-}
+    print("After calling add function, x = ", x);
 end_func

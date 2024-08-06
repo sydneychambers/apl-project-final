@@ -11,12 +11,28 @@ precedence = (
     ("left", "EXPONENTIAL"),
 )
 
+# def p_program(p):
+#     """
+#     program : function_list main_func
+#     """
+#     p[0] = ('program', p[1], p[2])
+#
+# def p_function_list(p):
+#     """
+#     function_list : function function_list
+#                   | function
+#                   | empty
+#     """
+#     if len(p) == 3:
+#         p[0] = ('function_list', p[1], p[2])
+#     elif len(p) == 2:
+#         p[0] = ('function_list', p[1])
 
 def p_main_func(p):
     """
-    main_func : MAIN_FUNCTION EXECUTE COLON LBRACE statement_list RBRACE FUNCTION_END
+    main_func : MAIN_FUNCTION EXECUTE COLON statement_list FUNCTION_END
     """
-    p[0] = ('main_func', p[5])
+    p[0] = ('main_func', p[4])
 
 
 def p_statement_list(p):
@@ -38,81 +54,111 @@ def p_statement(p):
               | array_declaration
               | array_index_access
               | while_statement
-              | do_while_statement
               | for_statement
               | if_statement
               | print_statement
+              | return_statement
               | empty
     """
     p[0] = p[1]
 
+# def p_function(p):
+#     """
+#     function : FUNCTION_DEFINITION IDENTIFIER EXECUTE COLON statement_list FUNCTION_END
+#             | FUNCTION_DEFINITION IDENTIFIER LPAREN datatype datavalue RPAREN EXECUTE COLON statement_list FUNCTION_END
+#     """
+#     if len(p) == 7:
+#         p[0] = ('function', p[2], p[5])
+#     elif len(p) == 11:
+#         p[0] = ('function', p[2], p[4], p[5], p[9])
+#
+# def p_function_call(p):
+#     """
+#     function_call : IDENTIFIER LPAREN datavalue RPAREN
+#     """
+#     p[0] = ('function_call', p[1], p[3])
 
 def p_if_statement(p):
     """
-    if_statement : IF LPAREN condition_expression RPAREN EXECUTE COLON LBRACE statement_list RBRACE END_IF
-                 | IF LPAREN condition_expression RPAREN EXECUTE COLON LBRACE statement_list RBRACE OTHERWISE IF LPAREN condition_expression RPAREN EXECUTE COLON LBRACE statement_list RBRACE END_IF
+    if_statement : IF LPAREN condition_expression RPAREN EXECUTE COLON statement_list END_IF
+                | IF LPAREN condition_expression RPAREN EXECUTE COLON statement_list OTHERWISE COLON statement_list END_IF
+                | IF LPAREN condition_expression RPAREN EXECUTE COLON statement_list OTHERWISE IF LPAREN condition_expression RPAREN EXECUTE COLON statement_list END_IF
     """
-    if len(p) == 11:
-        p[0] = ('if_statement', p[3], p[8])
-    elif len(p) == 21:
-        p[0] = ('if_statement', p[3], p[8], p[13], p[18])
+    if len(p) == 9:
+        p[0] = ('if_statement', p[3], p[7])
+    elif len(p) == 12:
+        p[0] = ('if_statement', p[3], p[7], p[10])
+    elif len(p) == 17:
+        p[0] = ('if_statement', p[3], p[7], p[11], p[15])
 
 
 def p_for_statement(p):
     """
-    for_statement : FOR variable_declaration WITH LIMIT INTEGER_VALUE ASCEND INTEGER_VALUE EXECUTE COLON LBRACE statement_list RBRACE END_FOR
-                  | FOR variable_declaration WITH LIMIT INTEGER_VALUE DESCEND INTEGER_VALUE EXECUTE COLON LBRACE statement_list RBRACE END_FOR
+    for_statement : FOR variable_declaration WITH LIMIT INTEGER_VALUE ASCEND INTEGER_VALUE EXECUTE COLON statement_list END_FOR
+                  | FOR variable_declaration WITH LIMIT INTEGER_VALUE DESCEND INTEGER_VALUE EXECUTE COLON statement_list END_FOR
     """
-    p[0] = ('for_statement', p[2], p[5], p[6], p[7], p[11])
+    p[0] = ('for_statement', p[2], p[5], p[6], p[7], p[10])
 
 
 def p_print_statement(p):
     """
-    print_statement : PRINT LPAREN STRING_VALUE RPAREN SEMICOLON
-                    | PRINT LPAREN STRING_VALUE ADDITION expression RPAREN SEMICOLON
+    print_statement : PRINT LPAREN print_list RPAREN SEMICOLON
     """
-    if len(p) == 8:
-        p[0] = ('print_statement', p[3], p[5])
+    p[0] = ('print_statement', p[3])
+
+def p_print_list(p):
+    """
+    print_list : expression
+               | STRING_VALUE
+               | expression COMMA print_list
+               | STRING_VALUE COMMA expression
+               | STRING_VALUE COMMA print_list
+               | STRING_VALUE COMMA expression COMMA print_list
+    """
+    if len(p) == 2:
+        p[0] = ('print_list', p[1])
+    elif len(p) == 4:
+        p[0] = ('print_list', p[1], p[3])
     elif len(p) == 6:
-        p[0] = ('print_statement', p[3])
-
-
-def p_do_while_statement(p):
-    """
-    do_while_statement : EXECUTE COLON LBRACE statement_list RBRACE WHILE LPAREN condition_expression RPAREN
-    """
-    p[0] = ('do_while_statement', p[4], p[8])
-
+        p[0] = ('print_list', p[1], p[3], p[5])
 
 def p_while_statement(p):
     """
-    while_statement : WHILE LPAREN condition_expression RPAREN EXECUTE COLON LBRACE statement_list RBRACE END_WHILE
+    while_statement : WHILE LPAREN condition_expression RPAREN EXECUTE COLON statement_list END_WHILE
     """
-    p[0] = ('while_statement', p[3], p[8])
+    p[0] = ('while_statement', p[3], p[7])
+
+def p_return_statement(p):
+    """
+    return_statement : RETURN statement SEMICOLON
+    """
+    p[0] = ('return_statement', p[2])
 
 
 def p_variable_declaration(p):
     """
-    variable_declaration : datatype variable_assignment
+    variable_declaration : datatype IDENTIFIER SEMICOLON
+                         | datatype IDENTIFIER ASSIGNMENT expression SEMICOLON
     """
-    p[0] = ('variable_declaration', p[1], p[2])
+    if len(p) == 4:
+        p[0] = ('variable_declaration', p[1], p[2])
+    elif len(p) == 6:
+        p[0] = ('variable_declaration', p[1], p[2], p[4])
 
 
 def p_variable_assignment(p):
     """
-    variable_assignment : identifier SEMICOLON
-                        | identifier ASSIGNMENT expression SEMICOLON
+    variable_assignment : IDENTIFIER ASSIGNMENT expression SEMICOLON
+                        | array_index_access ASSIGNMENT expression SEMICOLON
     """
-    if len(p) == 5:
-        p[0] = ('variable_assignment', p[1], p[3])
-    elif len(p) == 3:
-        p[0] = p[1]
+    p[0] = ('variable_assignment', p[1], p[3])
+
 
 
 def p_array_declaration(p):
     """
-    array_declaration : datatype identifier LBRACKET INTEGER_VALUE RBRACKET SEMICOLON
-                      | datatype identifier LBRACKET INTEGER_VALUE RBRACKET ASSIGNMENT LBRACKET array_value_list RBRACKET SEMICOLON
+    array_declaration : datatype IDENTIFIER LBRACKET INTEGER_VALUE RBRACKET SEMICOLON
+                      | datatype IDENTIFIER LBRACKET INTEGER_VALUE RBRACKET ASSIGNMENT LBRACKET array_value_list RBRACKET SEMICOLON
     """
     if len(p) == 7:
         p[0] = ('array_declaration', p[1], p[2], p[4])
@@ -133,7 +179,8 @@ def p_array_value_list(p):
 
 def p_array_index_access(p):
     """
-    array_index_access : identifier LBRACKET INTEGER_VALUE RBRACKET
+    array_index_access : IDENTIFIER LBRACKET INTEGER_VALUE RBRACKET
+                       | IDENTIFIER LBRACKET IDENTIFIER RBRACKET
     """
     p[0] = ('array_index_access', p[1], p[3])
 
@@ -162,14 +209,22 @@ def p_expression(p):
 
 def p_condition_expression(p):
     """
-    condition_expression  : expression EQUAL_TO expression
-                        | expression LESS_THAN expression
-                        | expression GREATER_THAN expression
-                        | expression LESS_THAN_OR_EQUAL_TO expression
-                        | expression GREATER_THAN_OR_EQUAL_TO expression
-                        | expression NOT_EQUAL_TO expression
+    condition_expression  : condition_expression AND condition_expression
+                         | condition_expression OR condition_expression
+                         | NOT expression
+                         | expression EQ expression
+                         | expression LT expression
+                         | expression GT expression
+                         | expression LE expression
+                         | expression GE expression
+                         | expression NE expression
     """
-    p[0] = ('condition_expression ', p[2], p[1], p[3])
+    if len(p) == 4:
+        p[0] = ('condition_expression', p[2], p[1], p[3])
+    elif len(p) == 3:
+        p[0] = ('condition_expression', p[1], p[2])
+    else:
+        p[0] = p[1]
 
 
 def p_datatype(p):
@@ -177,6 +232,7 @@ def p_datatype(p):
     datatype : FLOAT
              | INTEGER
              | STRING
+             | BOOLEAN
     """
     p[0] = p[1]
 
@@ -186,14 +242,11 @@ def p_datavalue(p):
     datavalue : FLOAT_VALUE
              | INTEGER_VALUE
              | STRING_VALUE
-             | identifier
-    """
-    p[0] = p[1]
-
-
-def p_indentifier(p):
-    """
-    identifier : IDENTIFIER
+             | NULL_VALUE
+             | IDENTIFIER
+             | TRUE
+             | FALSE
+             | array_index_access
     """
     p[0] = p[1]
 
