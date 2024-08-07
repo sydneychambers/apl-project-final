@@ -401,7 +401,11 @@ class SemanticAnalyzer:
         except ValueError:
             raise ValueError("Start value and step value must be integers")
 
-        # Validate step size and limit values
+        # If limit_value is sent as a variable / identifier, search the symbol table
+        if isinstance(limit_value, str) and limit_value in self.symbol_table:
+            limit_value = self.symbol_table[limit_value]['value']
+
+        # Check step size and limit values
         if step_tag == "ascend":
             if start_value > limit_value:
                 raise ValueError("Start value cannot be greater than the limit value in an incrementing loop")
@@ -413,7 +417,7 @@ class SemanticAnalyzer:
         else:
             raise ValueError(f"Invalid step tag '{step_tag}'")
 
-        # Reject step size if it's zero
+        # Reject step size if it is zero
         if step_size == 0:
             raise ValueError("Step size cannot be zero")
 

@@ -187,10 +187,6 @@ def gemini_api(prompt):
             Arya cannot create or handle / define any function apart from main_func, which also means there can be no 
             function calls. 
 
-            Arya cannot access an array using a loop index value identifier (think for integer i = 0; <- i is not allowed
-            to check the value at each index. If you generate any code that accesses the specific index of an array, you 
-            are to do it using an explicit integer value -> a[1], a[2], etc.
-
             If user input says something along the lines of "Create a function to", that function will 
             always be main_func, and the code for satisfying the user request shall be generated within main_func.
 
@@ -198,7 +194,6 @@ def gemini_api(prompt):
             handle is arrays.
 
             Arya does not accept any form of user input. You cannot provide any code that requests user input.
-            Arya does not facilitate return statements.
 
             Only use the tokens and reserved words to generate your output as well as the symbols provided in the 
             symbols list. The BNF is for you to reference how to structure tokens and symbols when constructing programs.
@@ -212,13 +207,13 @@ def gemini_api(prompt):
             If there is a request that is not code-related, reiterate that you can only generate code in Arya.
 
             The language is not properly equipped to simulate complex real world entities (such as helicopters, how CPUs handle
-            processing, turing machines, etc.). If you attempt to simulate any real world entity, be reminded that Arya 
-            is limited to basic programming constructs such as if statements, for loops, while loops and do-while loops so 
-            your implementation will not be the most accurate if you try.
+            processing, turing machines, etc.).
 
             Do not allow the user request malicious code -> code for simulating DDoS attacks, for example.
 
             Arya cannot handle SQL or any database related operations.
+
+            Any request that is not achievable using code is to be denied.
 
             Arya does not have any libraries. It only has basic programming constructs outlined in the grammar.
 

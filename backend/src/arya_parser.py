@@ -94,8 +94,8 @@ def p_if_statement(p):
 
 def p_for_statement(p):
     """
-    for_statement : FOR variable_declaration WITH LIMIT INTEGER_VALUE ASCEND INTEGER_VALUE EXECUTE COLON statement_list END_FOR
-                  | FOR variable_declaration WITH LIMIT INTEGER_VALUE DESCEND INTEGER_VALUE EXECUTE COLON statement_list END_FOR
+    for_statement : FOR variable_declaration WITH LIMIT datavalue ASCEND INTEGER_VALUE EXECUTE COLON statement_list END_FOR
+                  | FOR variable_declaration WITH LIMIT datavalue DESCEND INTEGER_VALUE EXECUTE COLON statement_list END_FOR
     """
     p[0] = ('for_statement', p[2], p[5], p[6], p[7], p[10])
 

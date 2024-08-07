@@ -46,5 +46,4 @@ def arya_compiler(source_code):
         return f"Semantic analysis failed: \n {e}"
 
     # Pass the file contents to the compile function
-
-# arya_compiler(file_contents)
+    # arya_compiler(file_contents)
