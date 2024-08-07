@@ -1,6 +1,6 @@
 import ply.yacc as yacc
 import ply.lex as lex
-from backend.src.tokens import *
+from tokens import *
 
 # Defines the START symbol for the grammar
 start = 'main_func'
@@ -189,6 +189,7 @@ def p_expression(p):
     """
     expression : condition_expression
                 | expression ADDITION expression
+                | expression COMMA expression
                 | expression SUBTRACTION expression
                 | expression MULTIPLICATION expression
                 | expression DIVISION expression
